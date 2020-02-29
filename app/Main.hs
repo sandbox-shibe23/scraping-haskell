@@ -1,13 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 import qualified Data.ByteString.Lazy.Char8 as L8
-import           Network.HTTP.Client    (defaultManagerSettings, newManager)
+import           Network.HTTP.Client
+import           Network.HTTP.Client.TLS
 import           Network.HTTP.Simple
 
 main :: IO ()
 main = do
-    manager <- newManager defaultManagerSettings
+    manager <- newManager tlsManagerSettings
     
-    let request = setRequestManager manager "http://httpbin.org/get"
+    let request = setRequestManager manager "https://www.yahoo.co.jp"
     response <- httpLBS request
 
     putStrLn $ "The status code was: " ++
